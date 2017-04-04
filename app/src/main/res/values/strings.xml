@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">防火墙</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">设置</string>
+    <string name="flow_manage">流量管理</string>
+    <string name="task_manage">任务管理</string>
+    <string name="list_manage">名单管理</string>
+    <string name="soft_manage">软件管理</string>
+    <string name="net_control">上网监控</string>
+    <string name="harass_intercept">骚扰拦截</string>
+    <string name="net_work">网络</string>
+
+
+    <string name="setting_aotu_open">开机自启</string>
+    <string name="setting_float_window">显示悬浮窗</string>
+</resources>

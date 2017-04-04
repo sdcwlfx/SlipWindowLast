@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--左侧滑动窗口栏-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/list_manage"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/list_manage" />
+        <item
+            android:id="@+id/soft_manage"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/soft_manage" />
+        <item
+            android:id="@+id/task_manage"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/task_manage" />
+        <item
+            android:id="@+id/harass_intercept"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/harass_intercept" />
+    </group>
+
+    <item android:title="@string/net_work">
+        <menu>
+            <item
+                android:id="@+id/flow_manage"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/flow_manage" />
+            <item
+                android:id="@+id/net_control"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/net_control" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,7 @@
+<litepal>
+    <dbname value="fire_wall" />
+    <version value="1"></version>
+    <list>
+        <mapping class="com.example.slipwindow.db.DarkListHarass" />
+    </list>
+</litepal>
