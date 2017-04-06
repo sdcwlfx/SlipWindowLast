@@ -21,7 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".SoftManageActivity" />
+        <activity android:name=".ShowAppDetailInfoActivity"></activity>
     </application>
 
 </manifest>

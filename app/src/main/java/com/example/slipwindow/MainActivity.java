@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.list_manage) {//名单管理
             // Handle the camera action
         } else if (id == R.id.soft_manage) {//软件管理
+            Intent intent=new Intent(MainActivity.this,SoftManageActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.task_manage) {//任务管理
 

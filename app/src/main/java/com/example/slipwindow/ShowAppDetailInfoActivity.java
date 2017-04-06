@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class SettingActivity extends AppCompatActivity {
+public class ShowAppDetailInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,12 +13,12 @@ public class SettingActivity extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("设置");
-        setContentView(R.layout.activity_setting);
+        actionBar.setTitle("应用信息");
+        setContentView(R.layout.activity_show_app_detail_info);
     }
 
     /**
-     * 标题栏返回按钮
+     * 返回箭头
      * @param item
      * @return
      */

@@ -16,4 +16,10 @@
 
     <string name="setting_aotu_open">开机自启</string>
     <string name="setting_float_window">显示悬浮窗</string>
+
+    <string-array name="array_choice">
+        <item>启动应用</item>
+        <item>卸载应用</item>
+        <item>查看详细信息</item>
+    </string-array>
 </resources>
