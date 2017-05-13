@@ -1,4 +1,7 @@
 package com.example.slipwindow;
+/**
+ * 软件管理
+ */
 
 import android.content.ComponentName;
 import android.content.DialogInterface;
@@ -18,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.slipwindow.Adapter.AppAdapter;
@@ -32,6 +36,7 @@ public class SoftManageActivity extends AppCompatActivity {
     private ListView listView=null;
     private ArrayList<AppInfo> appInfoList=null;
     private PackageManager packageManager;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +48,14 @@ public class SoftManageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_soft_manage);
         packageManager=getPackageManager();
         listView=(ListView)findViewById(R.id.app_list_view);
-       // loadApplications();//加载应用
-       // AppAdapter appAdapter=new AppAdapter(SoftManageActivity.this,appInfoList);
-       // listView.setAdapter(appAdapter);//与listView控件绑定
         new Thread(runable).start();//开新线程加载应用列表
-        //listView.setOnItemClickListener(new AppListItemLinster());//监听
-
-       // listView.setOnItemClickListener(new App);
+        progressBar=(ProgressBar)findViewById(R.id.soft_manage_progress_bar);
     }
 
     final Runnable runable=new Runnable() {
         @Override
         public void run() {
             loadApplications();//加载应用
-          //  AppAdapter appAdapter=new AppAdapter(SoftManageActivity.this,appInfoList);
-           // listView.setAdapter(appAdapter);//与listView控件绑定
             myHandler.obtainMessage().sendToTarget();
 
         }
@@ -65,6 +63,7 @@ public class SoftManageActivity extends AppCompatActivity {
     private Handler myHandler=new Handler() {
         public void handleMessage(Message msg){
               AppAdapter appAdapter=new AppAdapter(SoftManageActivity.this,appInfoList);
+            progressBar.setVisibility(View.GONE);//进度条不可见
              listView.setAdapter(appAdapter);//与listView控件绑定
             listView.setOnItemClickListener(new AppListItemLinster());//监听
         }
@@ -124,12 +123,8 @@ public class SoftManageActivity extends AppCompatActivity {
      */
     public final class AppListItemLinster implements AdapterView.OnItemClickListener{
         AlertDialog dialog;
-        /**
-         * 根据应用所在包名获取该包所有活动，并返回主活动名
-         * @param packName
-         * @return
-         * @throws Exception
-         */
+
+         //根据应用所在包名获取该包所有活动，并返回主活动名
         public String getActivityName(String packName) throws Exception {
             final PackageInfo packageInfo=packageManager.getPackageInfo(packName,PackageManager.GET_ACTIVITIES);
             final ActivityInfo[] activityInfos=packageInfo.activities;
@@ -140,18 +135,14 @@ public class SoftManageActivity extends AppCompatActivity {
             return activityInfos[0].name;
         }
 
-        /**
-         * 据包名获取应用信息（活动、权限）
-         */
+
+         //据包名获取应用信息（活动、权限）
         public PackageInfo getAppPackInfo(String packName) throws Exception{
             return packageManager.getPackageInfo(packName,PackageManager.GET_ACTIVITIES|PackageManager.GET_PERMISSIONS);
         }
 
-        /**
-         * 利用包名和程序活动开启应用
-         * @param appInfo
-         * @throws Exception
-         */
+
+         //利用包名和程序活动开启应用
         public void startApp(AppInfo appInfo) throws Exception{
             final String packName=appInfo.getAppPackageName();//获取指定应用包名
             final String activityName=getActivityName(packName);//据包名获取应用主活动名
@@ -195,7 +186,7 @@ public class SoftManageActivity extends AppCompatActivity {
             Intent unstall_intent=new Intent();
             unstall_intent.setAction(Intent.ACTION_DELETE);//删除动作
             unstall_intent.setData(Uri.parse("package:"+packageName));
-            Toast.makeText(SoftManageActivity.this,"卸载",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SoftManageActivity.this,"卸载",Toast.LENGTH_SHORT).show();
             startActivity(unstall_intent);
         }
 
@@ -208,8 +199,6 @@ public class SoftManageActivity extends AppCompatActivity {
          * @param arg3
          */
         public void onItemClick(AdapterView<?> view, View arg1, final int position, long arg3){
-          //  ListView choiceList=(ListView)findViewById(R.id.choice_list);
-            //Toast.makeText(SoftManageActivity.this,"onItemClick",Toast.LENGTH_SHORT).show();
             AlertDialog.Builder builder=new AlertDialog.Builder(SoftManageActivity.this);
             builder.setTitle("选项");
             builder.setItems(R.array.array_choice, new DialogInterface.OnClickListener() {

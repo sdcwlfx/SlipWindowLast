@@ -3,13 +3,13 @@ package com.example.slipwindow.db;
 import org.litepal.crud.DataSupport;
 
 /**
- * Created by asus on 2017-04-04.电话短信拦截白名单
+ * .电话放行白名单()
  */
 
-public class WhiteListHarass extends DataSupport {
+public class PhoneWhiteListPass extends DataSupport {
     private String phoneNum;//号码
-    private boolean phonePass;//电话放行
-    private boolean messagePass;//短信放行
+   // private boolean phonePass;//电话放行
+   // private boolean messagePass;//短信放行
 
     public String getPhoneNum() {
         return phoneNum;
@@ -19,7 +19,7 @@ public class WhiteListHarass extends DataSupport {
         this.phoneNum = phoneNum;
     }
 
-    public boolean isPhonePass() {
+  /*  public boolean isPhonePass() {
         return phonePass;
     }
 
@@ -33,5 +33,5 @@ public class WhiteListHarass extends DataSupport {
 
     public void setMessagePass(boolean messagePass) {
         this.messagePass = messagePass;
-    }
+    }*/
 }

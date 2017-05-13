@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!--时间段选择-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:gravity="center">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <TimePicker
+                android:id="@+id/start_time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TimePicker>
+            <TextView
+                android:id="@+id/Tt1"
+                android:text="@string/start_time"
+                android:layout_width="match_parent"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:layout_below="@id/start_time_picker"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+
+
+            <TimePicker
+                android:id="@+id/end_time_picker"
+                
+                android:layout_width="wrap_content"
+                android:layout_below="@id/Tt1"
+                android:layout_height="wrap_content">
+            </TimePicker>
+            <TextView
+                android:text="@string/end_time"
+                android:textSize="30sp"
+                android:layout_below="@id/end_time_picker"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+</ScrollView>

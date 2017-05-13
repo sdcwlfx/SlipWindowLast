@@ -1,7 +1,14 @@
 <litepal>
     <dbname value="fire_wall" />
-    <version value="1"></version>
+    <version value="7"></version>
     <list>
-        <mapping class="com.example.slipwindow.db.DarkListHarass" />
+        <mapping class="com.example.slipwindow.db.PhoneWhiteListPass"/><!--电话白名单表-->
+        <mapping class="com.example.slipwindow.db.PhoneDarkListHarass" /><!--电话拦截黑名单表-->
+        <mapping class="com.example.slipwindow.db.PhoneHarrassRecorder"/><!--电话拦截记录表-->
+        <mapping class="com.example.slipwindow.db.MessageHarrassRecorder"/><!--短信拦截表-->
+        <mapping class="com.example.slipwindow.db.MessageDarkListHarass"/><!--短信拦截黑名单表-->
+        <mapping class="com.example.slipwindow.db.MessageWhiteListPass"/><!--短信白名单表-->
+        <mapping class="com.example.slipwindow.db.SightModleTime"/><!--情景模式时间段-->
+        <mapping class="com.example.slipwindow.db.TimePhone"/>
     </list>
 </litepal>

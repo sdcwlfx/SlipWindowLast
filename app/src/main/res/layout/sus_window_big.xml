@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="150dp"
+    android:id="@+id/sus_window_big_layout"
+    android:background="@drawable/bg_big"
+    android:orientation="vertical" >
+    <com.zjun.progressbar.CircleDotProgressBar
+        android:id="@+id/bar_percent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#94aac1" />
+    <Button
+        android:id="@+id/sus_window_back"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/sus_window_back"
+        />
+</LinearLayout>

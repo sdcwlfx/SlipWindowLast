@@ -14,5 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
+    <ProgressBar
+        android:id="@+id/soft_manage_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

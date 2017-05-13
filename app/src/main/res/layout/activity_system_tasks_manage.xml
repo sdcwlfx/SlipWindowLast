@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_system_tasks_manage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.slipwindow.TasksManageActivity">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/system_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/user_layout_button1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/user_tasks"
+            android:textSize="20sp"
+            android:textColor="#fff"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/system_layout_button1"
+            android:background="@color/colorPrimary"
+            android:text="@string/system_tasks"
+            android:textSize="20sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
+    <ListView
+        android:layout_below="@id/system_layout"
+        android:id="@+id/system_tasks_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
+
+</RelativeLayout>

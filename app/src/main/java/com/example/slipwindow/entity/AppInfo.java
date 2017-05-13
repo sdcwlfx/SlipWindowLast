@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 /**
+ * app信息
  * Created by asus on 2017-04-06.
  */
 
