@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.slipwindow"
-    android:sharedUserId="android.uid.system">
+    package="com.example.slipwindow"> <!-- "android:sharedUserId="android.uid.system" -->
+
 
     <!-- android:sharedUserId="android.uid.system" -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -160,12 +160,39 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </receiver>
+
+        <activity android:name=".FlowManageActivity" />
+
+        <service
+            android:name=".service.FlowManageService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".broadcast.MyFlowManageReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="com.example.slipwindow.MY_FLOWMANAGE_BROADCAST" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".broadcast.PhonePowerOffReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".TestActivity" />
+        <activity android:name=".FlowManageSettingActivity" />
+        <activity android:name=".FlowManagePackageActivity"></activity>
     </application>
 
 </manifest>

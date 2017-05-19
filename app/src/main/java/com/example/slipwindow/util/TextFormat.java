@@ -21,4 +21,12 @@ public class TextFormat {
             return "超出统计范围";
         }
     }
+
+    public static float formatToMbFromByte(long data){
+        DecimalFormat format=new DecimalFormat();
+            return(data/1024f/1024f);
+
+    }
+
+
 }

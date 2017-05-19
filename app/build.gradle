@@ -36,6 +36,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.2.1'
     compile 'eu.chainfire:libsuperuser:1.0.0.+'
     compile 'com.github.zjun615:ProgressBar:v1.3'
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
     testCompile 'junit:junit:4.12'
 
 }

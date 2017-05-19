@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_flow_manage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.slipwindow.FlowManageActivity">
+    <LinearLayout
+        android:id="@+id/flow_manage_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/flow_manage_last"
+            android:textColor="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/flow_manage_update"
+            android:layout_width="wrap_content"
+            android:textColor="#fff"
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+   <!-- <HorizontalScrollView
+        android:id="@+id/flow_manage_scrollView"
+        android:layout_below="@id/flow_manage_layout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+    </HorizontalScrollView>-->
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/flow_manage_line_chart"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_height="300dp"
+            android:layout_below="@id/flow_manage_layout"/>
+
+
+    <TextView
+        android:id="@+id/flow_manage_text_view"
+        android:layout_width="match_parent"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:text="@string/flow_manage_text_view"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flow_manage_line_chart"/>
+
+    <ListView
+        android:id="@+id/flow_manage_list_view"
+        android:layout_width="match_parent"
+        android:layout_below="@id/flow_manage_text_view"
+        android:layout_height="wrap_content">
+    </ListView>
+</RelativeLayout>

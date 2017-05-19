@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.slipwindow.service.FloatWindowService;
+import com.example.slipwindow.service.FlowManageService;
 import com.example.slipwindow.util.TasksUtil;
 import com.zjun.progressbar.CircleDotProgressBar;
 
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         scrollbar.setImageMatrix(matrix);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        phoneModleSelect();//来电模式设定
+        phoneModleSelect();//来电模式设定及开启FowManageService监听一天结束
         /**
          * 滑动窗口布局
          */
@@ -269,7 +270,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent=new Intent(MainActivity.this,SettingActivity.class);
+          //  Intent intent=new Intent(MainActivity.this,SettingActivity.class);
+            Intent intent=new Intent(MainActivity.this,TestActivity.class);
             startActivity(intent);
             return true;
         }
@@ -303,6 +305,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent=new Intent(MainActivity.this,HarrassManageActivity.class);
             startActivity(intent);
         } else if (id == R.id.flow_manage) {//流量管理
+            Intent intent=new Intent(MainActivity.this,FlowManageActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.net_control) {//上网监控
             Intent intent=new Intent(MainActivity.this,NetControlActivity.class);
@@ -342,6 +346,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent=new Intent(MainActivity.this, FloatWindowService.class);
             startService(intent);
         }
+        if(!pre.getBoolean("flowManage",false)){
+            SharedPreferences.Editor editor=pre.edit();
+            editor.putBoolean("flowManage",true);
+            editor.apply();
+        }
+        String myFlow=pre.getString("myFlow","未接受到自定义广播");
+        String close=pre.getString("phoneClose","未接受到关机广播");
+        Toast.makeText(MainActivity.this,myFlow+close,Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(MainActivity.this, FlowManageService.class);
+        startService(intent);
     }
 
     /**
@@ -365,7 +379,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     //ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
                     //am.killBackgroundProcesses(getPackageName());
                     //Process.(Process.myPid());
-                    Process.killProcess(Process.myPid());
+                   // Process.killProcess(Process.myPid());
+                    finish();
                 }
                 break;
         }

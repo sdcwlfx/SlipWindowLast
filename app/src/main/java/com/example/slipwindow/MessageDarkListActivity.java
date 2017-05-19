@@ -85,7 +85,7 @@ public class MessageDarkListActivity extends AppCompatActivity {
                         if(which==0){//手动添加号码
                             editText=new EditText(MessageDarkListActivity.this);
                             editText.setHint("输入11位手机号码");//提示信息
-                            editText.setMaxLines(1);//最大行数
+                            editText.setMaxLines(1);//最大行数editText
                             new AlertDialog.Builder(MessageDarkListActivity.this).setTitle("请输入号码")
                                     .setView(editText)
                                     .setPositiveButton("确定",new DialogInterface.OnClickListener(){
