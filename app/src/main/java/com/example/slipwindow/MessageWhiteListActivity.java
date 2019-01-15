@@ -94,6 +94,9 @@ public class MessageWhiteListActivity extends AppCompatActivity {
                                                 MessageWhiteListPass messageWhiteListPass1=new MessageWhiteListPass();
                                                 messageWhiteListPass1.setPhone(phoneNum);
                                                 messageWhiteListPass1.save();
+                                                if(messageWhiteStateView.VISIBLE==View.VISIBLE){//若状态可见
+                                                    messageWhiteStateView.setVisibility(View.GONE);
+                                                }
                                                 new Thread(runable).start();
                                                 Toast.makeText(MessageWhiteListActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                                             }else if(phoneInWhiteList(phoneNum)&&phoneNum!=null&&Common.isMobile(phoneNum)){//已在黑名单中

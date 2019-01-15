@@ -19,7 +19,8 @@
         android:id="@+id/message_white_list_state_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|bottom"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:text="还未添加号码到白名单"
         android:textSize="20sp"
         android:textColor="#aaaa"
@@ -31,5 +32,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_action_add"/>
 </RelativeLayout>

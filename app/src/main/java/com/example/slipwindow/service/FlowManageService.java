@@ -26,6 +26,16 @@ import java.util.TimerTask;
 
 public class FlowManageService extends Service {
     private Timer timer;//定时检查是否过了一天
+    private float totalMonthMobile;
+    private float usedThisMonth;
+    private float monthUsedMobile;
+    private Intent intent;
+    private String show;
+    private String not="还未设置流量套餐";
+    private String used="已用：";
+    private String last="剩余：";
+    private SharedPreferences pre;
+    private Boolean hasNumber;
     public FlowManageService() {
     }
     @Override
@@ -36,28 +46,35 @@ public class FlowManageService extends Service {
 
     public void onCreate(){
         super.onCreate();
-        String show;
-        String not="还未设置流量套餐";
-        String used="已用：";
-        String last="剩余：";
-        SharedPreferences pre=getSharedPreferences("phoneModle", Context.MODE_PRIVATE);
-        Boolean hasNumber=pre.getBoolean("hasNumber",false);
+      pre=getSharedPreferences("phoneModle", Context.MODE_PRIVATE);
+        hasNumber=pre.getBoolean("hasNumber",false);
         if(hasNumber){//设置了套餐
+            totalMonthMobile = pre.getFloat("totalMonthMobile", 0);//月流量套餐，单位为MB
+            usedThisMonth = pre.getFloat("usedToatalMonthMobile", 0);
+            monthUsedMobile=pre.getFloat("monthFlowMobile",-1);
+            used+=String.valueOf(usedThisMonth);
+            if(totalMonthMobile>=usedThisMonth){
+                last+=String.valueOf(totalMonthMobile-usedThisMonth);
+            }else{
+                last="超额："+String.valueOf(usedThisMonth-totalMonthMobile);
+            }
             show=used+last;
         }else{
             show=not;
         }
-        Intent intent=new Intent(this, FlowManageActivity.class);
+        intent=new Intent(this, FlowManageActivity.class);
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,0);
         Notification notification=new NotificationCompat.Builder(this)
                 .setContentTitle(show)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                .setSmallIcon(R.mipmap.app1_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.app1_icon))
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .build();
         startForeground(1,notification);
     }
+
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         // 开启定时器，每隔1分钟刷新一次
@@ -65,19 +82,44 @@ public class FlowManageService extends Service {
             timer = new Timer();
             timer.scheduleAtFixedRate(new RefeshTimer(), 0, 1000*59);
         }
+
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void onDestroy(){//
+        super.onDestroy();
+        Intent intent=new Intent();
+        intent.setClass(this,FlowManageService.class);
+        startService(intent);
+
+        Intent intent1=new Intent();//
+        intent1.setClass(this,FlowWarningListenService.class);///
+        startService(intent1);//
     }
 
     class RefeshTimer extends TimerTask{
         public void run(){
-            //SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm");
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("mm");
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH:mm");
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-            Date nowDate=new Date();
+            Date nowDate=new Date();//24小时制
             String date=df.format(nowDate);
             String time=simpleDateFormat.format(nowDate);
+            String date1=pre.getString("nextMonth","");
+            if(date1.equals(date)){//新的一月更新提醒标志，设为未提醒
+                SharedPreferences.Editor editor=pre.edit();
+                Calendar c=Calendar.getInstance();
+                c.setTime(new Date());
+                c.add(Calendar.MONTH,1);
+                Date result=c.getTime();
+                String date2=df.format(result);
+                editor.putString("nextMonth",date2);//将更新时间设为下一月
+                editor.putBoolean("dayHasWarning",false);//更新日提醒，本月未提醒过
+                editor.putBoolean("monthHasWarning",false);//更新月提醒，本月未提醒过
+                editor.putBoolean("monthLimitWarning",false);//更新月限额，本月未提醒过
+                editor.apply();
+            }
            // if(time.equals("23:58")){//过了一天，发送自定义广播存储各应用流量使用
-            if(time.equals("05")){
+            if(time.equals("23:28")){
                 SharedPreferences pre=getSharedPreferences("phoneModle",MODE_PRIVATE);
                 SharedPreferences.Editor editor=pre.edit();
                // if(pre.getBoolean("flowManage",true)){

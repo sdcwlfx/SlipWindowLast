@@ -9,14 +9,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:digits="0123456789."
         android:hint=""/>
-   <Spinner
+  <!-- <Spinner
         android:id="@+id/flow_update_spinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-   <!-- <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/flow_simple_unit"/>-->
+        android:entries="@array/flow_unit"/>-->
+   <TextView
+       android:id="@+id/flow_update_text"
+        android:layout_width="wrap_content"
+       android:text="MB"
+        android:layout_height="wrap_content" 
+       android:textColor="@color/colorPrimary"/>
 
 </LinearLayout>

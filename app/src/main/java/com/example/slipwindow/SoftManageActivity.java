@@ -50,6 +50,8 @@ public class SoftManageActivity extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.app_list_view);
         new Thread(runable).start();//开新线程加载应用列表
         progressBar=(ProgressBar)findViewById(R.id.soft_manage_progress_bar);
+       // Intent intent=new Intent("com.exmple.slipwindow.TODAY_USED_MOBILE");
+       // sendOrderedBroadcast(intent,null);
     }
 
     final Runnable runable=new Runnable() {

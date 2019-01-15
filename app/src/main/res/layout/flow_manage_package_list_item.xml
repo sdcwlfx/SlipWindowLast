@@ -1,16 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?><!--任务管理子项-->
+<?xml version="1.0" encoding="utf-8"?><!--套餐设置子项-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/package_list_item_text1"
         android:layout_width="0dp"
+        android:textSize="20sp"
+        android:textColor="#222"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
     <TextView
         android:id="@+id/package_list_item_text2"
         android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#222"
         android:layout_height="wrap_content"/>
 </LinearLayout>

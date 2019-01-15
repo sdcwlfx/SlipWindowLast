@@ -35,6 +35,7 @@ import java.io.File;
 import java.lang.Runnable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import com.example.slipwindow.packageStatsObserver.DataCleanManager;
 import com.example.slipwindow.util.Common;
@@ -68,6 +69,7 @@ public class ShowAppDetailInfoActivity extends AppCompatActivity {
     private static String appCache1;
     private static String appData1;
     private ProgressBar progressBar;
+    private ArrayList<String> chinesePermissions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,7 +239,8 @@ public class ShowAppDetailInfoActivity extends AppCompatActivity {
                 appSizeView.setText(appSize1);
                 appCacheView.setText(appCache1);
                 appDataView.setText(appData1);
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ShowAppDetailInfoActivity.this, android.R.layout.simple_expandable_list_item_1, permissions);
+             //   ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ShowAppDetailInfoActivity.this, android.R.layout.simple_expandable_list_item_1, permissions);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ShowAppDetailInfoActivity.this, android.R.layout.simple_expandable_list_item_1, chinesePermissions);
                 appPowerList.setAdapter(arrayAdapter);
             }
 
@@ -253,6 +256,7 @@ public class ShowAppDetailInfoActivity extends AppCompatActivity {
             try{
 
                 getAppSize(mContext, packageName);
+                chinesePermissions=Common.getSelectedAppPermission(permissions);
                 Thread.sleep(2000);
                 myHandler.obtainMessage().sendToTarget();
             }catch (Exception e){

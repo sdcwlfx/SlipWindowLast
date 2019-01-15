@@ -83,7 +83,6 @@ public class HarrassMessageAdapter extends RecyclerView.Adapter<HarrassMessageAd
                             messageHarrassRecorder.delete();//删除
                             recorderList.remove(position);
                             notifyDataSetChanged();//刷新适配器
-
                         }
                         dialog.dismiss();//关闭提示框
                     }

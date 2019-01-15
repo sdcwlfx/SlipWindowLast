@@ -1,5 +1,6 @@
 package com.example.slipwindow.View;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.icu.text.DateFormat;
 import android.icu.text.MessageFormat;
@@ -11,10 +12,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.slipwindow.R;
+import com.example.slipwindow.util.ProgressManager;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * Created by asus on 2017-05-09.
@@ -38,9 +42,11 @@ public class SusWindowSmallView extends LinearLayout {
     private float xInView;//记录手指按下时在小悬浮窗的View上的横坐标的值
     private float yInView;//记录手指按下时在小悬浮窗的View上的纵坐标的值
     private boolean isPressed;//记录当前手指是否按下
+    private Context context;
 
     public SusWindowSmallView(Context context){
         super(context);
+        this.context=context;
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         LayoutInflater.from(context).inflate(R.layout.sus_window_small, this);
         //View view = findViewById(R.id.sus_window_small_layout);
@@ -80,6 +86,8 @@ public class SusWindowSmallView extends LinearLayout {
                 isPressed=false;
                 if (MyWindowManager.isReadyToLaunch()) {
                     launchRocket();
+                  //  clearTask(context);//清理任务
+
                 }else{
                     updateViewStatus();
                     // 如果手指离开屏幕时，xDownInScreen和xInScreen相等，且yDownInScreen和yInScreen相等，则视为触发了单击事件。
@@ -101,6 +109,29 @@ public class SusWindowSmallView extends LinearLayout {
     private void launchRocket() {
         MyWindowManager.removeLauncher(getContext());
         new LaunchTask().execute();
+    }
+
+
+    /**
+     * 火箭发射后清理任务
+     */
+    public void clearTask(Context context){
+        int count=0;
+        //  PackageManager packageManager=context.getPackageManager();
+        ActivityManager activityManager=(ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ProgressManager.Process> runningProcesses=ProgressManager.getRunningProcesses();//获取运行进程
+        for(ProgressManager.Process process:runningProcesses) {
+            if (!process.getPackageName().equals(context.getPackageName())) {
+                activityManager.killBackgroundProcesses(process.getPackageName());
+                count++;
+            }
+        }
+        List<ProgressManager.Process> runningProcesses1=ProgressManager.getRunningProcesses();//获取运行进程
+        if(count>runningProcesses1.size()){
+            Toast.makeText(context,"成功清理掉"+String.valueOf(count-runningProcesses1.size())+"个进程",Toast.LENGTH_SHORT).show ();
+        }else{
+            Toast.makeText(context,"已达最佳,无需清理",Toast.LENGTH_SHORT).show ();
+        }
     }
 
 
@@ -198,6 +229,7 @@ public class SusWindowSmallView extends LinearLayout {
         protected void onPostExecute(Void result) {
             // 火箭升空结束后，回归到悬浮窗状态
             updateViewStatus();
+            clearTask(context);//清理任务
             mParams.x = (int) (xDownInScreen - xInView);
             mParams.y = (int) (yDownInScreen - yInView);
             windowManager.updateViewLayout(SusWindowSmallView.this, mParams);

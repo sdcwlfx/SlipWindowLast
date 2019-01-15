@@ -22,7 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" /><!--主内容-->
+    <include layout="@layout/main_task_close" /><!--主内容-->
 
    <!-- <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

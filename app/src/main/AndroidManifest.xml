@@ -20,23 +20,38 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.android.permission.FORCE_STOP_PACKAGES" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app1_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="p3WZ2YYubR3A3QLYHH7hMNTzpncKqfzv" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <action android:name="android.intent.action.SENDTO" />
@@ -49,17 +64,56 @@
                 <data android:scheme="mmsto" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".SoftManageActivity" />
-        <activity android:name=".ShowAppDetailInfoActivity" />
-        <activity android:name=".AboutAppActivity" />
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SoftManageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShowAppDetailInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutAppActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".service.IncomingCallAndMessageService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ListManageActivity" />
+        <activity
+            android:name=".ListManageActivity"
+            android:screenOrientation="portrait" />
 
         <!--
         <receiver
@@ -119,25 +173,63 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".PhoneWhiteListActivity" />
-        <activity android:name=".PhoneDarkListActivity" />
-        <activity android:name=".MessageDarkListActivity" />
-        <activity android:name=".MessageWhiteListActivity" />
-        <activity android:name=".PhoneDarkContactActivity" />
-        <activity android:name=".PhoneWhiteContactActivity" />
-        <activity android:name=".MessageDarkContactActivity" />
-        <activity android:name=".MessageWhiteContactActivity" />
-        <activity android:name=".ModleSelectActivity" />
-        <activity android:name=".SelectedTimeInfoActivity" />
-        <activity android:name=".SelectedTimeContactActivity" />
-        <activity android:name=".ModleMessageActivity" />
-        <activity android:name=".HarrassMessageManageActivity" />
-        <activity android:name=".HarrassManageActivity" />
-        <activity android:name=".HarrassPhoneManageActivity" />
-        <activity android:name=".SelectedHarrassAddressInfoActivity" />
-        <activity android:name=".SensitiveWordActivity" />
-        <activity android:name=".TasksManageActivity" />
-        <activity android:name=".TasksSettingActivity" />
+        <activity
+            android:name=".PhoneWhiteListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PhoneDarkListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageDarkListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageWhiteListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PhoneDarkContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PhoneWhiteContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageDarkContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageWhiteContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ModleSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectedTimeInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectedTimeContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ModleMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HarrassMessageManageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HarrassManageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HarrassPhoneManageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectedHarrassAddressInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SensitiveWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TasksManageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TasksSettingActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".broadcast.ScreenBroadcastReceiver"
@@ -163,6 +255,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
 
@@ -188,11 +282,63 @@
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
             </intent-filter>
+            <intent-filter android:priority="100">
+                <action android:name="com.exmple.slipwindow.TODAY_USED_MOBILE" /> <!-- 获取应用今日流量消耗排行 -->
+            </intent-filter>
         </receiver>
 
-        <activity android:name=".TestActivity" />
-        <activity android:name=".FlowManageSettingActivity" />
-        <activity android:name=".FlowManagePackageActivity"></activity>
+        <activity
+            android:name=".TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FlowManageSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FlowManagePackageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FlowCorrectedActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".service.InformService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".FlowlimmitWarningActivity" />
+
+        <service
+            android:name=".service.FlowWarningListenService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".broadcast.AutoStartImportServiceReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".FlowOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MyLocationActivity" />
+
+        <service
+            android:name=".service.ScreenOffService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

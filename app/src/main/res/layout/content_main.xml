@@ -41,7 +41,7 @@
         zjun:buttonTopOffset="20dp"
         />-->
 
-    <LinearLayout
+    <!--<LinearLayout
         android:orientation="horizontal"
         android:id="@+id/user_layout"
         android:layout_alignParentBottom="true"
@@ -68,21 +68,21 @@
             android:textSize="20sp"
             android:textColor="#fff"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
-    <ImageView
+   <!-- <ImageView
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_above="@id/user_layout"
         android:id="@+id/scrollbar"
         android:scaleType="matrix"
-        android:src="@drawable/scrollbar"/>
+        android:src="@drawable/scrollbar"/>-->
 
-    <android.support.v4.view.ViewPager
+    <!--<android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/scrollbar">
-    </android.support.v4.view.ViewPager>
+    </android.support.v4.view.ViewPager>-->
     <!--#94aac1-->
 </RelativeLayout>

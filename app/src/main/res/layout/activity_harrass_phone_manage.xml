@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:text="@string/message_state"
         android:textSize="20sp"
-        android:gravity="center|bottom"
+        android:gravity="center"
+        android:layout_centerInParent="true"
         android:textColor="#aaaa"
         android:visibility="gone"/>
     <ProgressBar

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><!--任务管理子项-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     xmlns:zjun="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
 
     <com.zjun.progressbar.CircleDotProgressBar
         android:id="@+id/bar_all"
@@ -15,7 +15,7 @@
         android:background="@color/colorPrimaryDark"
         zjun:showMode="ALL"
         zjun:percentTextSize="70sp"
-        zjun:unitText="分"
+        zjun:unitText="%"
         zjun:unitTextAlignMode="CN"
         zjun:unitTextSize="20sp"
         zjun:buttonTextSize="20sp"
@@ -31,9 +31,20 @@
         android:textColor="#ffff"
         android:gravity="center"
         android:text="@string/fast_text"/>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="20sp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:textColor="#111"
+            android:layout_gravity="center"
+            android:text="@string/my_bottom"
+            android:textSize="10sp"/>
 
-
-
+    </LinearLayout>
 
 
 

@@ -3,13 +3,16 @@ package com.example.slipwindow;
  * 上网监控
  */
 
+import android.app.AppOpsManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.AppOpsManagerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,10 +30,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class NetControlActivity extends AppCompatActivity {
-    PackageManager packageManager;
-    List<AppInfo> appInfoList;
-    RecyclerView netAppView;
-    ProgressBar progressBar;
+    private PackageManager packageManager;
+    private List<AppInfo> appInfoList;
+    private RecyclerView netAppView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class NetControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_net_control);
         netAppView=(RecyclerView)findViewById(R.id.net_app_list_view);
         progressBar=(ProgressBar)findViewById(R.id.net_progress_bar);
+
+
         new Thread(runable).start();
     }
 

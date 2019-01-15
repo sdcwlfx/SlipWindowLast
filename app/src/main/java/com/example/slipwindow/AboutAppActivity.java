@@ -17,8 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.slipwindow.packageStatsObserver.AppSize;
+import com.example.slipwindow.util.Common;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class AboutAppActivity extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class AboutAppActivity extends AppCompatActivity {
     private ImageView appImageView;
     private ListView appPower;
     private String[] appermission;
+    private ArrayList<String> chinesePermission;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +62,9 @@ public class AboutAppActivity extends AppCompatActivity {
            appNameText.setText(name+appName);
            appVersionText.setText(version+appVersion);
            appImageView.setImageDrawable(appDrawable);
-           ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(AboutAppActivity.this,android.R.layout.simple_expandable_list_item_1,appermission);
+           chinesePermission= Common.getSelectedAppPermission(appermission);
+          // ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(AboutAppActivity.this,android.R.layout.simple_expandable_list_item_1,appermission);
+           ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(AboutAppActivity.this,android.R.layout.simple_expandable_list_item_1,chinesePermission);
            appPower.setAdapter(arrayAdapter);
            /**
             * 获得应用大小

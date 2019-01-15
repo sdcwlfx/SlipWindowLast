@@ -35,6 +35,5 @@ public class MyFlowManageReceiver extends BroadcastReceiver {
         Toast.makeText(context,"总移动数据更新",Toast.LENGTH_SHORT).show();
         FlowStorageManage.addMobileUsedSelectedAppAfterDay(context);//一天结束调用更新各App流量使用
         Toast.makeText(context,"各APP流量更新",Toast.LENGTH_SHORT).show();
-
     }
 }

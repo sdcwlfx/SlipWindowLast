@@ -4,11 +4,13 @@ package com.example.slipwindow.util;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 
+import com.example.slipwindow.db.Permission;
 import com.example.slipwindow.db.PhoneDarkListHarass;
 import com.example.slipwindow.db.SightModleTime;
 import com.example.slipwindow.entity.Contact;
@@ -124,6 +126,114 @@ public class Common {
             e.printStackTrace();
         }
         return bool;
+    }
+
+
+    /**
+     * 初始化所有权限
+     */
+
+    public static void initPermission(Context context){
+        Permission permission1=new Permission();
+        permission1.setPermission("android.permission.ACCESS_COARSE_LOCATION");
+        permission1.setName("读取位置信息");
+        permission1.save();
+        Permission permission2=new Permission();
+        permission2.setPermission("android.permission.ACCESS_FINE_LOCATION");
+        permission2.setName("读取位置信息");
+        permission2.save();
+        Permission permission3=new Permission();
+        permission3.setPermission("android.permission.ACCESS_LOCATION_EXTRA_COMMANDS");
+        permission3.setName("读取位置信息");
+        permission3.save();
+        Permission permission4=new Permission();
+        permission4.setPermission("android.permission.ACCESS_MOCK_LOCATION");
+        permission4.setName("读取位置信息");
+        permission4.save();
+        Permission permission5=new Permission();
+        permission5.setPermission("android.permission.ACCESS_NETWORK_STATE");
+        permission5.setName("访问网络");
+        permission5.save();
+        Permission permission6=new Permission();
+        permission6.setPermission("android.permission.BLUETOOTH");
+        permission6.setName("蓝牙");
+        permission6.save();
+        Permission permission7=new Permission();
+        permission7.setPermission("android.permission.CALL_PHONE");
+        permission7.setName("电话");
+        permission7.save();
+        Permission permission8=new Permission();
+        permission8.setPermission("android.permission.CALL_PRIVILEGED");
+        permission8.setName("电话");
+        permission8.save();
+        Permission permission9=new Permission();
+        permission9.setPermission("android.permission.DEVICE_POWER");
+        permission9.setName("电源");
+        permission9.save();
+        Permission permission10=new Permission();
+        permission10.setPermission("android.permission.MODIFY_AUDIO_SETTINGS");
+        permission10.setName("声音");
+        permission10.save();
+        Permission permission11=new Permission();
+        permission11.setPermission("android.permission.NFC");
+        permission11.setName("NFC");
+        permission11.save();
+        Permission permission12=new Permission();
+        permission12.setPermission("android.permission.READ_CONTACTS");
+        permission12.setName("联系人");
+        permission12.save();
+        Permission permission13=new Permission();
+        permission13.setPermission("android.permission.READ_SMS");
+        permission13.setName("短信");
+        permission13.save();
+        Permission permission14=new Permission();
+        permission14.setPermission("android.permission.RECEIVE_SMS");
+        permission14.setName("短信");
+        permission14.save();
+        Permission permission15=new Permission();
+        permission15.setPermission("android.permission.RECORD_AUDIO");
+        permission15.setName("录音");
+        permission15.save();
+        Permission permission16=new Permission();
+        permission16.setPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+        permission16.setName("存储");
+        permission16.save();
+        Permission permission17=new Permission();
+        permission17.setPermission("android.permission.READ_EXTERNAL_STORAGE");
+        permission17.setName("存储");
+        permission17.save();
+        Permission permission18=new Permission();
+        permission18.setPermission("android.permission.CAMERA");
+        permission18.setName("调用摄像头");
+        permission18.save();
+        Permission permission19=new Permission();
+        permission19.setPermission("android.permission.WRITE_CALENDAR");
+        permission19.setName("日程");
+        permission19.save();
+        Permission permission20=new Permission();
+        permission20.setPermission("android.permission.RECEIVE_BOOT_COMPLETED");
+        permission20.setName("开机自启");
+        permission20.save();
+    }
+
+    /**
+     * 依据英文返回中文权限
+     * @param permissionList
+     * @return
+     */
+   // public static ArrayList<String> getSelectedAppPermission(String[] permissionList){
+    public static ArrayList<String> getSelectedAppPermission(String[] permissionList){
+        ArrayList<String> chinesePermisson=new ArrayList<String>();
+        // String[] chinesePermissons=new String[permissionList.length];
+        List<Permission> permissions=null;
+        for(int i=0;i<permissionList.length;i++){
+            permissions=DataSupport.where("permission=?",permissionList[i]).find(Permission.class);
+            if(permissions.size()>0&&!chinesePermisson.contains(permissions.get(0).getName())){
+                chinesePermisson.add(permissions.get(0).getName());
+            }
+        }
+        return chinesePermisson;
+
     }
 
 

@@ -1,6 +1,6 @@
 package com.example.slipwindow.broadcast;
 /**
- * 接听屏幕状态广播
+ * 接听屏幕锁频状态广播
  */
 
 import android.content.BroadcastReceiver;
@@ -19,14 +19,16 @@ public class ScreenBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
             SharedPreferences pre=context.getSharedPreferences("phoneModle",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pre.edit();
+        editor.putString("screenOff","接受到锁频广播");
+        editor.apply();
             if(pre.getBoolean("taskSetting",false)){
                // TasksUtil.CloseAllTasks(context);//关闭除本应外其它用户应用进程
                 TasksUtil.CloseTasks(context);
-                Toast.makeText(context,"关闭进程",Toast.LENGTH_LONG).show();
+                //Toast.makeText(context,"关闭进程",Toast.LENGTH_LONG).show();
             }
-        }
+
 
         //throw new UnsupportedOperationException("Not yet implemented");
     }

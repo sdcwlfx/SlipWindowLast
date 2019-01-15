@@ -95,6 +95,9 @@ public class MessageDarkListActivity extends AppCompatActivity {
                                                 MessageDarkListHarass messageDarkListHarass=new MessageDarkListHarass();
                                                 messageDarkListHarass.setPhoneNum(phoneNum);
                                                 messageDarkListHarass.save();
+                                                if(messageDarkStateView.VISIBLE==View.VISIBLE){//若状态可见
+                                                    messageDarkStateView.setVisibility(View.GONE);
+                                                }
                                                 new Thread(runable).start();
                                                 Toast.makeText(MessageDarkListActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                                             }else if(phoneInDarkList(phoneNum)&&phoneNum!=null&&Common.isMobile(phoneNum)){//已在黑名单中

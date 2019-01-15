@@ -96,6 +96,9 @@ public class PhoneWhiteListActivity extends AppCompatActivity {
                                                 PhoneWhiteListPass phoneWhiteListPass=new PhoneWhiteListPass();
                                                 phoneWhiteListPass.setPhoneNum(phoneNum);
                                                 phoneWhiteListPass.save();
+                                                if(phoneWhiteStateView.VISIBLE==View.VISIBLE){//若状态可见
+                                                    phoneWhiteStateView.setVisibility(View.GONE);
+                                                }
                                                 new Thread(runable).start();
                                                 //listHarasses.add(phoneDarkListHarass);
                                                 //phoneDarkArrayList.add(phoneNum);

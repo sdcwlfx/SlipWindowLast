@@ -29,4 +29,18 @@ public class TextFormat {
     }
 
 
+    public static String formatFromMb(float data){
+        DecimalFormat format=new DecimalFormat();
+        if(data<1024){
+            return data+"MB";
+        }else if(data<(1024*1024)){
+            return format.format(data/1024f)+"GB";
+        }else{
+            return "超出统计范围";
+        }
+    }
+
+
+
+
 }

@@ -1,6 +1,6 @@
 <litepal>
     <dbname value="fire_wall" />
-    <version value="12"></version>
+    <version value="13"></version>
     <list>
         <mapping class="com.example.slipwindow.db.PhoneWhiteListPass"/><!--电话白名单表-->
         <mapping class="com.example.slipwindow.db.PhoneDarkListHarass" /><!--电话拦截黑名单表-->
@@ -15,5 +15,6 @@
         <mapping class="com.example.slipwindow.db.MobileUsedSelectedAppRecorder"/>
         <mapping class="com.example.slipwindow.db.WifiUsedRecorder"/>
         <mapping class="com.example.slipwindow.db.FlowUsedRecorder"/>
+        <mapping class="com.example.slipwindow.db.Permission"/>
     </list>
 </litepal>

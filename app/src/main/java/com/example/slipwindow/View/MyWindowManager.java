@@ -6,12 +6,15 @@ import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.slipwindow.R;
+import com.example.slipwindow.util.ProgressManager;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by asus on 2017-05-09.创建或移除大小悬浮窗
@@ -105,6 +108,8 @@ public class MyWindowManager {
             susWindowBigView = null;
         }
     }
+
+
 
     /**
      *  创建一个火箭发射台，位置为屏幕底部

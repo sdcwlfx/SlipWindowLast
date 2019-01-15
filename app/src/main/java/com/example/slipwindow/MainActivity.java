@@ -4,8 +4,10 @@ package com.example.slipwindow;
  */
 
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Build;
@@ -36,12 +38,17 @@ import android.widget.Toast;
 
 import com.example.slipwindow.service.FloatWindowService;
 import com.example.slipwindow.service.FlowManageService;
+import com.example.slipwindow.service.FlowWarningListenService;
+import com.example.slipwindow.service.InformService;
+import com.example.slipwindow.util.Common;
+import com.example.slipwindow.util.ProgressManager;
 import com.example.slipwindow.util.TasksUtil;
 import com.zjun.progressbar.CircleDotProgressBar;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener/*,View.OnClickListener*/{
     private long firstTime=0;
     private CircleDotProgressBar circleDotProgressBar;
     private DrawerLayout drawerLayout;
@@ -62,69 +69,105 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        circleDotProgressBar=(CircleDotProgressBar)findViewById(R.id.bar_all);
+        circleDotProgressBar.setProgressMax(TasksUtil.getAllValue(MainActivity.this));
+        circleDotProgressBar.setProgress(TasksUtil.getUsedValue(MainActivity.this));
+        circleDotProgressBar.setOnButtonClickListener(new View.OnClickListener() {//一键加速
+            @Override
+            public void onClick(View v) {//关闭进程
+                // clearMemory();
+                int count=0;
+              //  PackageManager packageManager=getPackageManager();
+                ActivityManager activityManager=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+                List<ProgressManager.Process> runningProcesses=ProgressManager.getRunningProcesses();//获取运行进程
+                for(ProgressManager.Process process:runningProcesses) {
+                    if (!process.getPackageName().equals(getPackageName())) {
+                        activityManager.killBackgroundProcesses(process.getPackageName());
+                        count++;
+                    }
+                }
+                List<ProgressManager.Process> runningProcesses1=ProgressManager.getRunningProcesses();//获取运行进程
+               // Toast.makeText(MainActivity.this,"成功清理掉"+String.valueOf(count-runningProcesses1.size())+"个进程",Toast.LENGTH_SHORT).show();
+
+             //   for(int i=1;i<=TasksUtil.getUsedValue(MainActivity.this);i++){
+                   // circleDotProgressBar.setProgress(i);
+             //  }
+                circleDotProgressBar.setProgress(TasksUtil.getUsedValue(MainActivity.this));
+                if(count>runningProcesses1.size()){
+                    Toast.makeText(MainActivity.this,"成功清理掉"+String.valueOf(count-runningProcesses1.size())+"个进程",Toast.LENGTH_SHORT).show ();
+                }else{
+                    Toast.makeText(MainActivity.this,"已达最佳",Toast.LENGTH_SHORT).show ();
+                }
+
+            }
+        });
         //View view=findViewById(R.id.app_bar_main);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        LayoutInflater inflater =getLayoutInflater();
-        View view1 = inflater.inflate(R.layout.main_task_close, null);
-        View view2 = inflater.inflate(R.layout.main_trash_clean,null);
-        taskButton = (Button) findViewById(R.id.main_task_close_button);
-        trashButton = (Button)findViewById(R.id.main_trash_clean_button);
-        taskButton.setOnClickListener(this);
-        trashButton.setOnClickListener(this);
-        scrollbar = (ImageView)findViewById(R.id.scrollbar);
-        pageView =new ArrayList<View>();
-        pageView.add(view1);
-        pageView.add(view2);
+   //     viewPager = (ViewPager) findViewById(R.id.viewPager);
+     //   LayoutInflater inflater =getLayoutInflater();
+     //   View view1 = inflater.inflate(R.layout.main_task_close, null);
+     //   View view2 = inflater.inflate(R.layout.main_trash_clean,null);
+     //   taskButton = (Button) findViewById(R.id.main_task_close_button);
+     //   trashButton = (Button)findViewById(R.id.main_trash_clean_button);
+     //   taskButton.setOnClickListener(this);
+      //  trashButton.setOnClickListener(this);
+     //   scrollbar = (ImageView)findViewById(R.id.scrollbar);
+     //   pageView =new ArrayList<View>();
+     //   pageView.add(view1);
+      //  pageView.add(view2);
 
         //数据适配器
-        PagerAdapter mPagerAdapter = new PagerAdapter(){
+      //  PagerAdapter mPagerAdapter = new PagerAdapter(){
 
-            @Override
+         //   @Override
             //获取当前窗体界面数
-            public int getCount() {
+      //      public int getCount() {
                 // TODO Auto-generated method stub
-                return pageView.size();
-            }
+       //         return pageView.size();
+      //      }
 
-            @Override
+       //     @Override
             //判断是否由对象生成界面
-            public boolean isViewFromObject(View arg0, Object arg1) {
+         //   public boolean isViewFromObject(View arg0, Object arg1) {
                 // TODO Auto-generated method stub
-                return arg0==arg1;
-            }
+         //       return arg0==arg1;
+      //      }
             //使从ViewGroup中移出当前View
-            public void destroyItem(View arg0, int arg1, Object arg2) {
-                ((ViewPager) arg0).removeView(pageView.get(arg1));
-            }
+       //     public void destroyItem(View arg0, int arg1, Object arg2) {
+         //       ((ViewPager) arg0).removeView(pageView.get(arg1));
+       //     }
 
-            //返回一个对象，这个对象表明了PagerAdapter适配器选择哪个对象放在当前的ViewPager中
-            public Object instantiateItem(View arg0, int arg1){
-                ((ViewPager)arg0).addView(pageView.get(arg1));
-                return pageView.get(arg1);
-            }
-        };
+       //     //返回一个对象，这个对象表明了PagerAdapter适配器选择哪个对象放在当前的ViewPager中
+      //      public Object instantiateItem(View arg0, int arg1){
+       //         ((ViewPager)arg0).addView(pageView.get(arg1));
+      //          return pageView.get(arg1);
+       //     }
+    //    };
         //绑定适配器
-        viewPager.setAdapter(mPagerAdapter);
+    //    viewPager.setAdapter(mPagerAdapter);
         //设置viewPager的初始界面为第一个界面
-        viewPager.setCurrentItem(0);
+   //     viewPager.setCurrentItem(0);
         //添加切换界面的监听器
-        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
+   //     viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         // 获取滚动条的宽度
-        bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.scrollbar).getWidth();
+    //    bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.scrollbar).getWidth();
         //为了获取屏幕宽度，新建一个DisplayMetrics对象
-        DisplayMetrics displayMetrics = new DisplayMetrics();
+    //    DisplayMetrics displayMetrics = new DisplayMetrics();
         //将当前窗口的一些信息放在DisplayMetrics类中
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+   //     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         //得到屏幕的宽度
-        int screenW = displayMetrics.widthPixels;
+    //    int screenW = displayMetrics.widthPixels;
         //计算出滚动条初始的偏移量
-        offset = (screenW / 2 - bmpW) / 2;
+    //    offset = (screenW / 2 - bmpW) / 2;
         //计算出切换一个界面时，滚动条的位移量
-        one = offset * 2 + bmpW;
-        Matrix matrix = new Matrix();
-        matrix.postTranslate(offset, 0);
+   //     one = offset * 2 + bmpW;
+     //   Matrix matrix = new Matrix();
+      //  matrix.postTranslate(offset, 0);
         //将滚动条的初始位置设置成与左边界间隔一个offset
-        scrollbar.setImageMatrix(matrix);
+      //  scrollbar.setImageMatrix(matrix);
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         phoneModleSelect();//来电模式设定及开启FowManageService监听一天结束
@@ -155,6 +198,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,currentPn);
             startActivity(intent);
         }
+        Intent intent=new Intent("com.exmple.slipwindow.TODAY_USED_MOBILE");
+        sendOrderedBroadcast(intent,null);
 
        /* circleDotProgressBar.setProgressMax(TasksUtil.getAllValue(MainActivity.this));
         circleDotProgressBar.setProgress(TasksUtil.getUsedValue(MainActivity.this));
@@ -165,49 +210,73 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 circleDotProgressBar.setProgress(TasksUtil.getUsedValue(MainActivity.this));
             }
         });*/
-    }
+   }
 
 
-    public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+ //   public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
-        @Override
-        public void onPageSelected(int arg0) {
-            Animation animation = null;
-            switch (arg0) {
-                case 0:
-                    /**
-                     * TranslateAnimation的四个属性分别为
-                     * float fromXDelta 动画开始的点离当前View X坐标上的差值
-                     * float toXDelta 动画结束的点离当前View X坐标上的差值
-                     * float fromYDelta 动画开始的点离当前View Y坐标上的差值
-                     * float toYDelta 动画开始的点离当前View Y坐标上的差值
-                     **/
-                    animation = new TranslateAnimation(one, 0, 0, 0);
-                    break;
-                case 1:
-                    animation = new TranslateAnimation(offset, one, 0, 0);
-                    break;
-            }
+     //   @Override
+      //  public void onPageSelected(int arg0) {
+        //    Animation animation = null;
+         //   switch (arg0) {
+          //      case 0:
+         //           animation = new TranslateAnimation(one, 0, 0, 0);
+         //           break;
+        //        case 1:
+         //           animation = new TranslateAnimation(offset, one, 0, 0);
+          //          break;
+        //    }
             //arg0为切换到的页的编码
-            currIndex = arg0;
+      //      currIndex = arg0;
             // 将此属性设置为true可以使得图片停在动画结束时的位置
-            animation.setFillAfter(true);
+      //      animation.setFillAfter(true);
             //动画持续时间，单位为毫秒
-            animation.setDuration(200);
+      //      animation.setDuration(200);
             //滚动条开始动画
-            scrollbar.startAnimation(animation);
-        }
+      //      scrollbar.startAnimation(animation);
+    //    }
 
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
+    //    @Override
+    //    public void onPageScrolled(int arg0, float arg1, int arg2) {
+    //    }
 
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
+    //    @Override
+     //   public void onPageScrollStateChanged(int arg0) {
+     //   }
+   // }
+
+
+    /**
+     * 清理掉长时间没用或空进程
+     */
+    public void clearMemory(){
+        ActivityManager activityManager=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+       /* List<ActivityManager.RunningAppProcessInfo> infoList = activityManager.getRunningAppProcesses();
+        List<ActivityManager.RunningServiceInfo> serviceInfos = activityManager.getRunningServices(100);
+        if(infoList!=null){
+            for(int i=0;i<infoList.size();++i){
+                ActivityManager.RunningAppProcessInfo runningAppProcessInfo=infoList.get(i);
+                if(runningAppProcessInfo.importance> ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE){
+                    String[] packageList=runningAppProcessInfo.pkgList;//进程包名
+                    for(int j=0;j<packageList.length;j++){
+                        if(!packageList[j].equals(getPackageName())){//进程包名不为本应用,清理掉
+                            activityManager.killBackgroundProcesses(packageList[j]);
+                            count++;
+                        }
+                    }
+                }
+            }
+        }*/
+        List<ProgressManager.Process> runningProcesses=ProgressManager.getRunningProcesses();//获取运行进程
+        for(ProgressManager.Process process:runningProcesses) {
+            if (!process.getPackageName().equals(getPackageName())) {
+                activityManager.killBackgroundProcesses(process.getPackageName());
+               // count++;
+            }
         }
     }
 
-    public void onClick(View view){
+  /*  public void onClick(View view){
         switch (view.getId()){
             case R.id.main_task_close_button:
                 //点击""进程关闭“时切换到第一页
@@ -218,7 +287,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 circleDotProgressBar.setOnButtonClickListener(new View.OnClickListener() {//一键加速
                     @Override
                     public void onClick(View v) {//关闭进程
-
+                       // clearMemory();
+                        int count=0;
+                        PackageManager packageManager=getPackageManager();
+                        ActivityManager activityManager=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+                        List<ProgressManager.Process> runningProcesses=ProgressManager.getRunningProcesses();//获取运行进程
+                        for(ProgressManager.Process process:runningProcesses) {
+                            if (!process.getPackageName().equals(getPackageName())) {
+                                activityManager.killBackgroundProcesses(process.getPackageName());
+                                count++;
+                            }
+                        }
+                        Toast.makeText(MainActivity.this,"成功清理掉"+count+"个进程",Toast.LENGTH_SHORT).show();
                         circleDotProgressBar.setProgress(TasksUtil.getUsedValue(MainActivity.this));
                     }
                 });
@@ -228,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 viewPager.setCurrentItem(1);
                 break;
         }
-    }
+    }*/
 
 
     /**
@@ -271,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
           //  Intent intent=new Intent(MainActivity.this,SettingActivity.class);
-            Intent intent=new Intent(MainActivity.this,TestActivity.class);
+            Intent intent=new Intent(MainActivity.this,SettingActivity.class);
             startActivity(intent);
             return true;
         }
@@ -308,8 +388,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent=new Intent(MainActivity.this,FlowManageActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.net_control) {//上网监控
-            Intent intent=new Intent(MainActivity.this,NetControlActivity.class);
+        } else if (id == R.id.net_control) {//我的位置
+          //  Intent intent=new Intent(MainActivity.this,NetControlActivity.class);
+            Intent intent=new Intent(MainActivity.this,MyLocationActivity.class);
             startActivity(intent);
         }
 
@@ -351,11 +432,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             editor.putBoolean("flowManage",true);
             editor.apply();
         }
+        if(pre.getBoolean("hasNumber",false)){//开启流量限额监听服务
+            Intent intent=new Intent(MainActivity.this, FlowWarningListenService.class);
+            startService(intent);
+        }
+        if(!pre.getBoolean("hasPermisson",false)){
+            Common.initPermission(MainActivity.this);
+            SharedPreferences.Editor editor=pre.edit();
+            editor.putBoolean("hasPermisson",true);
+            editor.apply();
+        }
+        String todayUsedMobile=pre.getString("todayUsedMobile","未接受");
         String myFlow=pre.getString("myFlow","未接受到自定义广播");
         String close=pre.getString("phoneClose","未接受到关机广播");
-        Toast.makeText(MainActivity.this,myFlow+close,Toast.LENGTH_SHORT).show();
+        String start=pre.getString("start","未接收到开机广播");
+        String screenOff=pre.getString("screenOff","未接收到锁频广播");
+        String important=pre.getString("import","未接收到电量变化广播");
+        Toast.makeText(MainActivity.this,todayUsedMobile,Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(MainActivity.this, FlowManageService.class);
         startService(intent);
+      //  Intent intent1=new Intent("com.exmple.slipwindow.TODAY_USED_MOBILE");
+      //  sendOrderedBroadcast(intent1,null);
+        /*Intent intent1=new Intent(MainActivity.this, InformService.class);
+        startService(intent1);*/
     }
 
     /**

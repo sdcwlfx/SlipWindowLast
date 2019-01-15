@@ -113,6 +113,7 @@
                     android:id="@+id/app_delete_data_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/card_background_white"
                     android:text="清空"
                     android:visibility="gone"
                     android:textSize="20sp"/>
@@ -155,6 +156,7 @@
                     android:id="@+id/app_delete_cache_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/card_background_white"
                     android:text="清空"
                     android:visibility="gone"
                     android:textSize="20sp"/>

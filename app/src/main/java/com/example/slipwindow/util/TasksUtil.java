@@ -261,7 +261,7 @@ public class TasksUtil {
 
 
     /**
-     * 计算已使用de内存，并返回
+     * 计算可使用de内存，并返回
      * @param context
      * @return
      */
@@ -278,7 +278,8 @@ public class TasksUtil {
             int usedMemorySize=(int)(totalMemorySize - availableSize);
             //int percent = (int) ((totalMemorySize - availableSize) / (float) totalMemorySize * 100);
             //return percent + "%";
-            return usedMemorySize;
+            // return usedMemorySize;
+            return (int)(totalMemorySize-usedMemorySize);
         } catch (IOException e) {
             e.printStackTrace();
         }
